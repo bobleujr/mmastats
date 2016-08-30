@@ -36,7 +36,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fighterdb',
 )
+
+DATE_FORMATS = {19: '%d/%m/%Y %H:%M:%S', 16: '%d/%m/%Y %H:%M', 10: '%d/%m/%Y'} #CSV CAN HAVE DIFFERENT DATETIME FORMATS SO WE MANAGE IT HERE
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -60,6 +64,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+DATABASES = {
+    'default': {
+        #'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+	    'NAME': 'mmastats',                      # Or path to database file if using sqlite3.
+        'USER': 'mma',                      # Not used with sqlite3.
+        'PASSWORD': '011092',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5433',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
