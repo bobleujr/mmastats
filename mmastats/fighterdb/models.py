@@ -3,7 +3,8 @@ from django.db import models
 # Create your models here.
 
 class Fighter(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
+    code = models.IntegerField(unique=True, default=0)
     name = models.CharField(max_length=150, null=True, blank=True)
     nick_name = models.CharField(max_length=300, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -21,6 +22,7 @@ class Fighter(models.Model):
     l_kos_tkos = models.IntegerField(null=True, blank=True)
     l_submissions = models.IntegerField(null=True, blank=True)
     l_decisions = models.IntegerField(null=True, blank=True)
+    ufc = models.BooleanField(default=False)
 
 
 class Fight(models.Model):
@@ -35,3 +37,31 @@ class Fight(models.Model):
     round = models.IntegerField(null=True, blank=True)
     time = models.CharField(max_length=10, null=True, blank=True)
 
+
+class EventMetric(models.Model):
+    id = models.AutoField(primary_key=True)
+    hasher = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=150, null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
+    country = models.CharField(max_length=50, null=True, blank=True)
+
+class FightMetric(models.Model):
+    id = models.AutoField(primary_key=True)
+    event = models.ForeignKey(EventMetric)
+    fighter1 = models.CharField(max_length=30, null=True, blank=True, db_column="fighter1_id")
+    fighter2 = models.CharField(max_length=30, null=True, blank=True, db_column="fighter2_id")
+    str1 = models.IntegerField(null=True, blank=True)
+    str2 = models.IntegerField(null=True, blank=True)
+    td1 = models.IntegerField(null=True, blank=True)
+    td2 = models.IntegerField(null=True, blank=True)
+    sub1 = models.IntegerField(null=True, blank=True)
+    sub2 = models.IntegerField(null=True, blank=True)
+    pass1 = models.IntegerField(null=True, blank=True)
+    pass2 = models.IntegerField(null=True, blank=True)
+    round = models.IntegerField(null=True, blank=True)
+    time = models.CharField(max_length=10, null=True, blank=True)
+
+class FighterMetric(models.Model):
+    pass
