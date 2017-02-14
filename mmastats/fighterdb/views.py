@@ -1027,11 +1027,28 @@ def get_fighter_metrics(request):
                 print 'Loses: ' + loses
                 print 'Draws: ' + draws
 
-            # name and nickname
+                """
+                    STILL MISSING
+                    FIGHTER INFO
+                """
+
+
             str_match = r'    <tr class="b-fight-details__table-row b-fight-details__table-row__hover js-fight-details-click"'
             match_begining = re.search(str_match, lines[i])
             if match_begining != None:
-                i += 9
+                i += 3
+                win = True if 'win' in lines[i] else False
+                print 'win?: '+str(winner_name)
+
+                match_begining = re.search('/fight-details/', lines[i])
+                match_end = re.search(r'">', lines[i])
+                fight_hasher = lines[i][match_begining.end():match_end.start()]
+                print 'Fight hasher: ' + fight_hasher
+
+                if FightMetric.object.filter(hasher=fight_hasher).count() > 0:
+                    continue
+
+                i += 6
                 match_begining = re.search('/fighter-details/', lines[i])
                 match_end = re.search(r'">', lines[i])
                 winner_hasher = lines[i][match_begining.end():match_end.start()]
@@ -1039,73 +1056,80 @@ def get_fighter_metrics(request):
 
                 i += 1
                 winner_name = lines[i]
-                print 'Winner name: ' + winner_name
+                print 'Fighter: ' + winner_name
 
-                i += 7
+                i += 5
                 match_begining = re.search('/fighter-details/', lines[i])
                 match_end = re.search(r'">', lines[i])
                 loser_hasher = lines[i][match_begining.end():match_end.start()]
-                print 'Loser hasher: ' + loser_hasher
+                print 'Challenger: ' + loser_hasher
 
                 i += 1
                 loser_name = lines[i]
                 print 'Loser name: ' + loser_name
 
-                i += 12
+                i += 7
                 winner_str = int(lines[i].replace(' ', ''))
                 print 'Winner STR: ' + str(winner_str)
 
-                i += 7
+                i += 4
                 loser_str = int(lines[i].replace(' ', ''))
                 print 'Loser STR: ' + str(loser_str)
 
-                i += 9
+                i += 5
                 winner_td = int(lines[i].replace(' ', ''))
                 print 'Winner TD: ' + str(winner_td)
 
-                i += 5
+                i += 4
                 loser_td = int(lines[i].replace(' ', ''))
                 print 'Loser TD: ' + str(loser_td)
 
-                i += 9
+                i += 6
                 winner_sub = int(lines[i].replace(' ', ''))
                 print 'Winner SUB: ' + str(winner_sub)
 
-                i += 5
+                i += 4
                 loser_sub = int(lines[i].replace(' ', ''))
                 print 'Loser SUB: ' + str(loser_sub)
 
-                i += 9
+                i += 5
                 winner_pass = int(lines[i].replace(' ', ''))
                 print 'Winner PASS: ' + str(winner_pass)
 
-                i += 5
+                i += 4
                 loser_pass = int(lines[i].replace(' ', ''))
                 print 'Loser PASS: ' + str(loser_pass)
 
+                i += 8
+                match_begining = re.search('/event-details/', lines[i])
+                match_end = re.search(r'">', lines[i])
+                event_hasher = lines[i][match_begining.end():match_end.start()]
+                print 'Event Hasher: ' + event_hasher
+
+                i += 1
+                event_name = lines[i].replace(' ', '')
+                print 'Event name: ' + event_name
+
                 i += 6
-                weight_category = lines[i].replace(' ', '')
-                print 'Weight Category: ' + weight_category
+                event_date = lines[i].replace(' ', '')
+                print 'Event date: ' + event_date
+
+                i += 6
+                decision_type = lines[i].replace(' ', '')
+                print 'Decision type: ' + decision_type
 
                 i += 10
-                method = lines[i].replace(' ', '')
-                print 'Method: ' + method
+                round = int(lines[i].replace(' ', ''))
+                print 'Round: ' + str(round)
 
-                i += 5
-                method_2 = lines[i].replace(' ', '')
-                print 'Method2: ' + method_2
-
-                i += 6
-                round = lines[i].replace(' ', '')
-                print 'Round: ' + round
-
-                i += 6
+                i += 7
                 time = lines[i].replace(' ', '')
                 print 'Time: ' + time
 
                 fight = FightMetric()
 
-                fight.event = event
+                fight.event_hasher = event_hasher
+                fight.hasher = fight_hasher
                 fight.fighter1 = winner_hasher
                 fight.fighter2 = loser_hasher
                 fight.str1 = winner_str

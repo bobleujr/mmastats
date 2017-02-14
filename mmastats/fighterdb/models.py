@@ -38,6 +38,15 @@ class Fight(models.Model):
     time = models.CharField(max_length=10, null=True, blank=True)
 
 
+
+
+
+
+
+
+
+
+
 class EventMetric(models.Model):
     id = models.AutoField(primary_key=True)
     hasher = models.CharField(max_length=50, unique=True)
@@ -49,7 +58,7 @@ class EventMetric(models.Model):
 
 class FightMetric(models.Model):
     id = models.AutoField(primary_key=True)
-    event = models.ForeignKey(EventMetric)
+    event_hasher = models.CharField(max_length=50, null=True, blank=True)
     fighter1 = models.CharField(max_length=30, null=True, blank=True, db_column="fighter1_id")
     fighter2 = models.CharField(max_length=30, null=True, blank=True, db_column="fighter2_id")
     str1 = models.IntegerField(null=True, blank=True)
@@ -61,11 +70,12 @@ class FightMetric(models.Model):
     pass1 = models.IntegerField(null=True, blank=True)
     pass2 = models.IntegerField(null=True, blank=True)
     round = models.IntegerField(null=True, blank=True)
+
     time = models.CharField(max_length=10, null=True, blank=True)
 
 class FighterMetric(models.Model):
     id = models.AutoField(primary_key=True)
-    code = models.IntegerField(unique=True, default=0)
+    hasher = models.IntegerField(unique=True, default=0)
     name = models.CharField(max_length=150, null=True, blank=True)
     nick_name = models.CharField(max_length=300, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
