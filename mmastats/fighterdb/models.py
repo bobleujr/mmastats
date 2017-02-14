@@ -64,4 +64,28 @@ class FightMetric(models.Model):
     time = models.CharField(max_length=10, null=True, blank=True)
 
 class FighterMetric(models.Model):
-    pass
+    id = models.AutoField(primary_key=True)
+    code = models.IntegerField(unique=True, default=0)
+    name = models.CharField(max_length=150, null=True, blank=True)
+    nick_name = models.CharField(max_length=300, null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    reach = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    weight = models.DecimalField(null=True, max_digits=10, decimal_places=4, blank=True)
+    height = models.CharField(max_length=20, null=True, blank=True)
+    # significant strikes landed per minute
+    slpm = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    # significant striking accuracy
+    stracc = models.IntegerField(null=True, blank=True)
+    # significant strike absorbed per minute
+    sapm = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    # significant strike defence
+    strdef = models.IntegerField(null=True, blank=True)
+    # average takedown landed per 15 minutes
+    tdavg = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    # takedown accuracy
+    tdacc = models.IntegerField(null=True, blank=True)
+    # takedown defense
+    tddef = models.IntegerField(null=True, blank=True)
+    # submission attempted per 15 minutes
+    subavg = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
