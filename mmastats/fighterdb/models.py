@@ -59,6 +59,7 @@ class EventMetric(models.Model):
 class FightMetric(models.Model):
     id = models.AutoField(primary_key=True)
     event_hasher = models.CharField(max_length=50, null=True, blank=True)
+    fight_hasher = models.CharField(max_length=50, unique=True)
     fighter1 = models.CharField(max_length=30, null=True, blank=True, db_column="fighter1_id")
     fighter2 = models.CharField(max_length=30, null=True, blank=True, db_column="fighter2_id")
     str1 = models.IntegerField(null=True, blank=True)
@@ -70,12 +71,15 @@ class FightMetric(models.Model):
     pass1 = models.IntegerField(null=True, blank=True)
     pass2 = models.IntegerField(null=True, blank=True)
     round = models.IntegerField(null=True, blank=True)
-
-    time = models.CharField(max_length=10, null=True, blank=True)
+    time = models.CharField(max_length=15, null=True, blank=True)
+    method = models.CharField(max_length=100, null=True, blank=True)
+    method2 = models.CharField(max_length=100, null=True, blank=True)
+    weight_cate = models.CharField(max_length=80, null=True, blank=True)
+    date = models.DateTimeField(null=True, blank=True)
 
 class FighterMetric(models.Model):
     id = models.AutoField(primary_key=True)
-    hasher = models.IntegerField(unique=True, default=0)
+    hasher = models.CharField(unique=True, max_length=50)
     name = models.CharField(max_length=150, null=True, blank=True)
     nick_name = models.CharField(max_length=300, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)

@@ -72,10 +72,10 @@ DATABASES = {
         #'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 	    'NAME': 'mmastats',                      # Or path to database file if using sqlite3.
-        'USER': 'mma',                      # Not used with sqlite3.
-        'PASSWORD': '011092',                  # Not used with sqlite3.
+        'USER': 'common',                      # Not used with sqlite3.
+        'PASSWORD': '12345',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5433',                      # Set to empty string for default. Not used with sqlite3.
+        'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
